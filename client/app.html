@@ -9,34 +9,28 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --cream: #f5f0e8;
             --dark: #1a1a2e;
             --accent: #c8973a;
             --accent2: #e8b84b;
             --text: #2d2d2d;
             --muted: #7a7a7a;
-            --card: #ffffff;
             --border: #e0d8cc;
         }
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background: var(--cream);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
         }
 
-        /* Background pattern */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(200, 151, 58, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(26, 26, 46, 0.06) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -47,7 +41,6 @@
             z-index: 1;
         }
 
-        /* Header */
         header {
             text-align: center;
             margin-bottom: 60px;
@@ -56,8 +49,8 @@
 
         .badge {
             display: inline-block;
-            background: var(--dark);
-            color: var(--accent2);
+            background: rgba(255,255,255,0.2);
+            color: #ffffff;
             font-size: 11px;
             font-weight: 500;
             letter-spacing: 3px;
@@ -65,6 +58,8 @@
             padding: 6px 18px;
             border-radius: 2px;
             margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
         }
 
         h1 {
@@ -72,17 +67,18 @@
             font-size: clamp(2.4rem, 6vw, 4rem);
             font-weight: 900;
             line-height: 1.1;
-            color: var(--dark);
+            color: #ffffff;
             margin-bottom: 16px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
         }
 
         h1 span {
-            color: var(--accent);
+            color: #ffe066;
             font-style: italic;
         }
 
         .subtitle {
-            color: var(--muted);
+            color: rgba(255,255,255,0.85);
             font-size: 16px;
             font-weight: 300;
             max-width: 420px;
@@ -90,17 +86,16 @@
             line-height: 1.6;
         }
 
-        /* Card */
         .card {
-            background: var(--card);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 4px;
             border: 1px solid var(--border);
             padding: 48px;
-            box-shadow: 0 4px 40px rgba(0,0,0,0.07);
+            box-shadow: 0 8px 60px rgba(0,0,0,0.2);
             animation: fadeUp 0.8s 0.2s ease both;
+            backdrop-filter: blur(10px);
         }
 
-        /* Grid layout */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -112,10 +107,6 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-        }
-
-        .field-group.full-width {
-            grid-column: 1 / -1;
         }
 
         label {
@@ -134,7 +125,7 @@
             font-family: 'DM Sans', sans-serif;
             font-size: 15px;
             color: var(--text);
-            background: var(--cream);
+            background: #f9f9f9;
             transition: border-color 0.2s, box-shadow 0.2s;
             appearance: none;
             -webkit-appearance: none;
@@ -162,7 +153,6 @@
             font-size: 14px;
         }
 
-        /* Toggle buttons for BHK and Bath */
         .toggle-group {
             display: flex;
             gap: 8px;
@@ -173,7 +163,7 @@
             padding: 13px 8px;
             border: 1.5px solid var(--border);
             border-radius: 3px;
-            background: var(--cream);
+            background: #f9f9f9;
             font-family: 'DM Sans', sans-serif;
             font-size: 14px;
             font-weight: 500;
@@ -194,7 +184,6 @@
             color: var(--accent2);
         }
 
-        /* Predict button */
         .predict-btn {
             width: 100%;
             padding: 18px;
@@ -212,31 +201,15 @@
             overflow: hidden;
         }
 
-        .predict-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(200,151,58,0.15), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
         .predict-btn:hover {
             background: #0f0f1e;
             transform: translateY(-1px);
             box-shadow: 0 8px 30px rgba(26,26,46,0.3);
         }
 
-        .predict-btn:hover::before { opacity: 1; }
-
         .predict-btn:active { transform: translateY(0); }
+        .predict-btn.loading { pointer-events: none; opacity: 0.8; }
 
-        .predict-btn.loading {
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        /* Result */
         .result-box {
             margin-top: 32px;
             padding: 32px;
@@ -280,7 +253,6 @@
             font-weight: 300;
         }
 
-        /* Error */
         .error-box {
             margin-top: 20px;
             padding: 16px 20px;
@@ -294,39 +266,14 @@
 
         .error-box.visible { display: block; }
 
-        /* Divider */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 32px 0;
-            color: var(--border);
-        }
-
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .divider span {
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        /* Footer */
         footer {
             text-align: center;
             margin-top: 40px;
             font-size: 13px;
-            color: var(--muted);
+            color: rgba(255,255,255,0.7);
             animation: fadeUp 0.8s 0.4s ease both;
         }
 
-        /* Animations */
         @keyframes fadeDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -337,7 +284,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Loading spinner */
         .spinner {
             display: inline-block;
             width: 18px;
@@ -350,15 +296,11 @@
             margin-right: 8px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Responsive */
         @media (max-width: 600px) {
             .card { padding: 28px 20px; }
             .form-grid { grid-template-columns: 1fr; gap: 24px; }
-            .field-group.full-width { grid-column: 1; }
         }
     </style>
 </head>
@@ -366,20 +308,17 @@
     <div class="container">
         <header>
             <div class="badge">ML Project</div>
-            <h1>House Price</span> Predictor</h1>
+            <h1>House Price <span>Predictor</span></h1>
             <p class="subtitle">Enter property details below to get an estimated market price powered by machine learning.</p>
         </header>
 
         <div class="card">
             <div class="form-grid">
-
-                <!-- Square Feet -->
                 <div class="field-group">
                     <label>Total Area (sq ft)</label>
                     <input type="number" id="sqft" placeholder="e.g. 1200" min="100" max="10000">
                 </div>
 
-                <!-- Location -->
                 <div class="field-group">
                     <label>Location</label>
                     <div class="select-wrapper">
@@ -389,7 +328,6 @@
                     </div>
                 </div>
 
-                <!-- BHK -->
                 <div class="field-group">
                     <label>BHK (Bedrooms)</label>
                     <div class="toggle-group" id="bhk-group">
@@ -401,7 +339,6 @@
                     </div>
                 </div>
 
-                <!-- Bathrooms -->
                 <div class="field-group">
                     <label>Bathrooms</label>
                     <div class="toggle-group" id="bath-group">
@@ -412,7 +349,6 @@
                         <button class="toggle-btn" data-value="5">5</button>
                     </div>
                 </div>
-
             </div>
 
             <button class="predict-btn" id="predict-btn" onclick="predictPrice()">
@@ -423,7 +359,7 @@
 
             <div class="result-box" id="result-box">
                 <div class="result-label">Estimated Market Price</div>
-                <div class="result-price" id="result-price">
+                <div class="result-price">
                     <span>₹</span><span id="price-value">--</span>
                 </div>
                 <div class="result-note">Lakhs · Based on current market data</div>
@@ -438,11 +374,9 @@
     <script>
         const SERVER_URL = 'https://touseefahmedpythonanywhere.pythonanywhere.com';
 
-        // Selected values
         let selectedBhk = 2;
         let selectedBath = 2;
 
-        // Toggle button logic
         function setupToggle(groupId, callback) {
             const group = document.getElementById(groupId);
             group.querySelectorAll('.toggle-btn').forEach(btn => {
@@ -457,7 +391,6 @@
         setupToggle('bhk-group', val => selectedBhk = val);
         setupToggle('bath-group', val => selectedBath = val);
 
-        // Load locations on page load
         async function loadLocations() {
             try {
                 const res = await fetch(`${SERVER_URL}/get_location_names`);
@@ -475,7 +408,6 @@
             }
         }
 
-        // Predict price
         async function predictPrice() {
             const sqft = document.getElementById('sqft').value;
             const location = document.getElementById('location').value;
@@ -483,11 +415,9 @@
             const resultBox = document.getElementById('result-box');
             const btn = document.getElementById('predict-btn');
 
-            // Hide previous results
             errorBox.classList.remove('visible');
             resultBox.classList.remove('visible');
 
-            // Validate
             if (!sqft || sqft < 100) {
                 showError('Please enter a valid area (minimum 100 sq ft).');
                 return;
@@ -497,7 +427,6 @@
                 return;
             }
 
-            // Loading state
             btn.classList.add('loading');
             btn.innerHTML = '<span class="spinner"></span> Calculating...';
 
@@ -514,12 +443,11 @@
                 });
 
                 const data = await res.json();
-
                 document.getElementById('price-value').textContent = data.estimated_price.toFixed(2);
                 resultBox.classList.add('visible');
 
             } catch (err) {
-                showError('Could not connect to server. Make sure your Flask server is running on port 5000.');
+                showError('Could not connect to server.');
             } finally {
                 btn.classList.remove('loading');
                 btn.innerHTML = 'Estimate Price';
@@ -532,7 +460,6 @@
             box.classList.add('visible');
         }
 
-        // Init
         loadLocations();
     </script>
 </body>
