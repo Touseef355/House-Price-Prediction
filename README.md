@@ -99,4 +99,4 @@ Then open `client/app.html` in your browser and update `SERVER_URL` in `app.js` 
 
 ## Author
 
-**Touseef Ahmed** · [GitHub](https://github.com/Touseef355) · [LinkedIn](https://linkedin.com/in/touseef355)
+**Touseef Ahmed** · [GitHub](https://github.com/Touseef355) · [LinkedIn](https://www.linkedin.com/in/touseefahmed-/)
