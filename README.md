@@ -1,6 +1,6 @@
 # House Price Predictor
 
-This is a full stack machine learnig web application predicts the property prices in Bangalore(India).
+This is a full stack machine learnig web application that predicts the property prices in Bangalore(India).
 It is based on following factors:
 1. area
 2. location
