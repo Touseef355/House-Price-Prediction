@@ -1,40 +1,45 @@
 # House Price Predictor
 
-This is a full stack machine learnig web application that predicts the property prices in Bangalore(India).
-It is based on following factors:
-1. area
-2. location
-3. bedrooms
-4. bathrooms
+A full-stack machine learning web application that predicts house prices in Bangalore, India, from area, location, bedrooms, and bathrooms.
 
-Built with python, Flask, Scikit-learn, frontend with HTML/CSS/JS
+## Live demo
 
-**Live Demo:** [touseef355.github.io/House-Price-Prediction/client/app.html](https://touseef355.github.io/House-Price-Prediction/client/app.html)
+Frontend: https://touseef355.github.io/House-Price-Prediction/client/app.html
 
----
+> The frontend is hosted on GitHub Pages. The Flask backend was hosted on PythonAnywhere, so the live prediction works only while that backend is running.
 
-## Tech Stack
+## Tech stack
 
 | Layer | Technology |
 |---|---|
-| ML Model | Python, Scikit-learn, Linear Regression |
-| Backend | Flask, REST API, PythonAnywhere |
+| ML model | Python, Scikit-learn, Linear Regression |
+| Backend | Flask, REST API |
 | Frontend | HTML5, CSS3, Vanilla JavaScript |
-| Deployment | GitHub Pages + PythonAnywhere |
+| Deployment | GitHub Pages (frontend), PythonAnywhere (backend) |
 
----
+## Model selection
 
-## Project Structure
+Three algorithms were compared with `GridSearchCV` and 5-fold cross-validation:
+
+| Model | Best score (R²) |
+|---|---|
+| **Linear Regression** | **0.854** |
+| Lasso | 0.703 |
+| Decision Tree | 0.695 |
+
+Linear Regression gave the best score, so it was selected as the final model.
+
+## Project structure
 
 ```
 House-Price-Prediction/
 ├── client/
 │   ├── app.html        # Structure
 │   ├── app.css         # Styles
-│   └── app.js          # Logic & API calls
+│   └── app.js          # Logic and API calls
 ├── server/
 │   ├── server.py       # Flask endpoints
-│   └── util.py         # Model loading & prediction
+│   └── util.py         # Model loading and prediction
 ├── model/
 │   ├── banglore_home_prices_model.pickle
 │   └── columns.json
@@ -42,23 +47,14 @@ House-Price-Prediction/
 └── requirements.txt
 ```
 
----
+## API
 
-## Model Selection
+| Endpoint | Method | Description |
+|---|---|---|
+| `/get_location_names` | GET | Returns the list of 200+ Bangalore locations |
+| `/predict_home_price` | POST | Returns the estimated price in Lakhs |
 
-Three algorithms were compared using `GridSearchCV` with 5-fold cross-validation:
-
-| Model | Best Score (R²) |
-|---|---|
-| **Linear Regression** | **0.854** ✅ |
-| Lasso | 0.703 |
-| Decision Tree | 0.695 |
-
-Linear Regression gave the best score so it was selected as the final model.
-
----
-
-## Running Locally
+## Running locally
 
 ```bash
 git clone https://github.com/Touseef355/House-Price-Prediction.git
@@ -67,36 +63,25 @@ pip install -r requirements.txt
 cd server && python server.py
 ```
 
-Then open `client/app.html` in your browser and update `SERVER_URL` in `app.js` to `http://127.0.0.1:5000`.
+Then open `client/app.html` in your browser and set `SERVER_URL` in `app.js` to `http://127.0.0.1:5000`.
 
----
+## What I learned
 
-## API
+- **Data preprocessing** — cleaning outliers, handling missing values, and one-hot encoding 200+ locations
+- **Model comparison** — evaluating Linear Regression, Lasso, and Decision Tree with cross-validation
+- **Flask REST API** — exposing the model as endpoints and handling CORS between two hosted domains
+- **Frontend–backend integration** — `fetch()` with `async/await`, form data, and error handling
+- **UX design** — currency formatting in three formats (Crores, Lakhs, full amount), input validation, and loading states
+- **Deployment** — GitHub Pages for the static frontend and PythonAnywhere for the Python backend
 
-| Endpoint | Method | Description |
-|---|---|---|
-| `/get_location_names` | GET | Returns list of 200+ Bangalore locations |
-| `/predict_home_price` | POST | Returns estimated price in Lakhs |
+## Future improvements
 
----
-
-## What I Learned
-
-- **Data preprocessing**  cleaning outliers, handling missing values, one-hot encoding 200+ locations
-- **Model comparison**  evaluating Linear Regression, Lasso, and Decision Tree with cross-validation
-- **Flask REST API**  exposing the model as endpoints, handling CORS between two hosted domains
-- **Frontend–backend integration**  `fetch()` with `async/await`, form data, error handling
-- **UX design**  currency formatting in 3 formats (Crores, Lakhs, full amount), input validation, loading states. Frontend designed with assistance from **Claude**
-- **Deployment**  GitHub Pages for static frontend, PythonAnywhere for Python backend
-
----
-
-## Future Improvements
-
-- [ ] Show price range (min–max) instead of a single estimate
-- [ ] Add Random Forest / XGBoost for potentially higher accuracy
----
+- Show a price range (min–max) instead of a single estimate
+- Add Random Forest / XGBoost for potentially higher accuracy
 
 ## Author
 
-**Touseef Ahmed** · [GitHub](https://github.com/Touseef355) · [LinkedIn](https://www.linkedin.com/in/touseefahmed-/)
+**Touseef Ahmed**
+
+- GitHub: https://github.com/Touseef355
+- LinkedIn: https://www.linkedin.com/in/touseefahmed-
